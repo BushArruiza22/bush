@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just a Message</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  width: 360px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: fade 0.6s ease;
+}
+
+h1 { color: #e63946; }
+p { color: #555; margin: 12px 0; }
+
+button {
+  margin-top: 20px;
+  padding: 14px 32px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  background: linear-gradient(135deg, #e63946, #ff758c);
+  color: white;
+  box-shadow: 0 10px 20px rgba(230,57,70,0.4);
+}
+
+button:hover { transform: scale(1.1); }
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.choice { background: #f1f1f1; color: #333; }
+
+#noBtn { background: #e0e0e0; color: #333; }
+
+.countdown {
+  font-size: 60px;
+  font-weight: bold;
+  color: #e63946;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #ff758c, #ff9a9e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+}
+
+.success-box {
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.25);
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+}
+
+.slideshow {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid white;
+  margin: 0 auto 20px;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  animation-name: floatUp;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app" class="card">
+  <h1>Hi Love 💕</h1>
+  <p>Wala lang</p>
+  <p>Gusto ko lang sabihin na</p>
+  <p>sobrang thankful ako na dumating ka sa buhay ko 🥺</p>
+  <button onclick="next1()">Continue</button>
+</div>
+
+<script>
+const app = document.getElementById("app");
+let selectedTime = "";
+
+const images = [
+  "pictures/1.jpg",
+  "pictures/3.jpg",
+  "pictures/4.jpg",
+  "pictures/7.jpg",
+  "pictures/9.jpg",
+  "pictures/11.jpg",
+  "pictures/12.jpg",
+  "pictures/13.jpg",
+  "pictures/15.jpg",
+  "pictures/16.jpg"
+];
+images.forEach(src => { const i = new Image(); i.src = src; });
+
+function next1() {
+  app.innerHTML = `
+    <h1>You’re Special 💖</h1>
+    <p>Ikaw ang nagpapasaya at nagbibigay kulay sa buhay ko</p>
+    <p>Thank you for being my strength and my happiness</p>
+    <button onclick="next2()">Next</button>
+  `;
+}
+
+function next2() {
+  app.innerHTML = `
+    <h1>One last thing</h1>
+    <p>May itatanong lang sana ako</p>
+    <button onclick="showValentine()">Okay</button>
+  `;
+}
+
+function showValentine() {
+  app.innerHTML = `
+    <h1>Will you be my Valentine? 💕</h1>
+    <p>February 14, 2026</p>
+    <div class="buttons">
+      <button onclick="askTime()">YES 💖</button>
+      <button id="noBtn">NO 😳</button>
+    </div>
+  `;
+  const noBtn = document.getElementById("noBtn");
+  noBtn.addEventListener("mouseover", () => {
+    noBtn.style.position = "fixed";
+    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  });
+}
+
+function askTime() {
+  app.innerHTML = `
+    <h1>What time are you free? ⏰</h1>
+    <div class="buttons">
+
+      <button class="choice" onclick="chooseTime('1:00 PM')">1:00 PM</button>
+      <button class="choice" onclick="chooseTime('2:00 PM')">2:00 PM</button>
+      <button class="choice" onclick="chooseTime('3:00 PM')">3:00 PM</button>
+      <button class="choice" onclick="chooseTime('4:00 PM')">4:00 PM</button>
+      <button class="choice" onclick="chooseTime('5:00 PM')">5:00 PM</button>
+      <button class="choice" onclick="chooseTime('6:00 PM')">6:00 PM</button>
+      <button class="choice" onclick="chooseTime('7:00 PM')">7:00 PM</button>
+      <button class="choice" onclick="chooseTime('8:00 PM')">8:00 PM</button>
+      <button class="choice" onclick="chooseTime('Surprise me 😳')">Surprise me 😳</button>
+    </div>
+  `;
+}
+
+function chooseTime(time) {
+  selectedTime = time;
+  startCountdown();
+}
+
+function startCountdown() {
+  app.innerHTML = `
+    <h1>Wait for it</h1>
+    <div class="countdown">3</div>
+  `;
+  let count = 3;
+  const counter = document.querySelector(".countdown");
+  const timer = setInterval(() => {
+    count--;
+    counter.textContent = count;
+    if (count === 0) {
+      clearInterval(timer);
+      showSurprise();
+    }
+  }, 1000);
+}
+
+function showSurprise() {
+  document.body.innerHTML = `
+    <div class="success" id="success">
+      <div class="success-box" id="successBox">
+        <div class="slideshow">
+          <img id="slideImg" src="${images[0]}">
+        </div>
+        <h1>SEE YOU AT FILLING STATION POBLA </h1>
+        <h1> ${selectedTime} </h1>
+        <p>February 14, 2026 😘</p>
+        <p>I love you so much ❤️</p>
+        <button id="confirmBtn">Confirm 💌</button>
+      </div>
+    </div>
+  `;
+
+  let index = 0;
+  const slideImg = document.getElementById("slideImg");
+  setInterval(() => {
+    index = (index + 1) % images.length;
+    slideImg.src = images[index];
+  }, 2500);
+
+  for (let i = 0; i < 25; i++) {
+    const h = document.createElement("div");
+    h.className = "floating-heart";
+    h.innerHTML = "❤️";
+    h.style.fontSize = Math.random() * 20 + 16 + "px";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = Math.random() * 4 + 4 + "s";
+    h.style.animationDelay = Math.random() * 4 + "s";
+    document.body.appendChild(h);
+  }
+
+  const confirmBtn = document.getElementById("confirmBtn");
+  confirmBtn.addEventListener("click", () => {
+    openReceiptTab();
+  });
+}
+
+function openReceiptTab() {
+  const receiptHTML = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Valentine Receipt 💖</title>
+    <style>
+      body { font-family: 'Segoe UI', sans-serif; background: #fff0f5; display:flex; justify-content:center; align-items:center; height:100vh; }
+      .receipt { padding:40px; border:2px dashed #e63946; border-radius:15px; text-align:center; background: #fff; }
+      h1 { color:#e63946; }
+      p { margin:10px 0; font-size:18px; color:#333; }
+      button { margin-top:20px; padding:10px 20px; font-size:16px; border:none; border-radius:20px; background:#e63946; color:white; cursor:pointer; }
+      button:hover { transform:scale(1.05); }
+    </style>
+    </head>
+    <body>
+      <div class="receipt" id="receipt">
+        <h1> Your Valentine Receipt 🎫</h1>
+        <p><strong>Name:</strong> Fairy Lyn Tayag</p>
+        <p><b>Date: </b>FEBRUARY 14, 2026</p>
+        <p><strong>Time:</strong> ${selectedTime}</p>
+        <p>Thank you for confirming 💕</p>
+        <p>NOTE:</p>
+        <p>Kindly show this receipt to your Love</p>
+        <button onclick="window.print()">Save / Print 💾</button>
+      </div>
+    </body>
+    </html>
+  `;
+  const newTab = window.open();
+  newTab.document.write(receiptHTML);
+  newTab.document.close();
+}
+</script>
+
+</body>
+</html>
